@@ -1,5 +1,5 @@
 import { getRecordsCollection } from "./_db.js";
-import { practiceAreas, type DisciplineId, type MaturityLevel, type PracticeArea, type Severity, type ValidationErrorEntry, type ValidationRecord } from "../src/lib/types";
+import type { DisciplineId, MaturityLevel, PracticeArea, Severity, ValidationErrorEntry, ValidationRecord } from "../src/lib/types";
 
 interface ApiRequest {
   method?: string;
@@ -21,7 +21,13 @@ interface ValidationRecordDocument extends Omit<ValidationRecord, "id"> {
 type NewValidationRecordPayload = Omit<ValidationRecord, "id">;
 
 const allowedDisciplineIds = new Set<DisciplineId>(["content", "system", "accessibility"]);
-const allowedPracticeAreas = new Set<PracticeArea>(practiceAreas);
+const allowedPracticeAreas = new Set<PracticeArea>([
+  "App Vivo",
+  "Vivo Empresas",
+  "Portais & E-comm",
+  "Evolução",
+  "Design Horizontal",
+]);
 const allowedMaturityLevels = new Set<MaturityLevel["id"]>(["alta", "media", "baixa"]);
 const allowedSeverities = new Set<Severity>(["critico", "alto", "medio", "baixo"]);
 
