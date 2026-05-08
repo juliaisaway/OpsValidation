@@ -1,4 +1,4 @@
-import { getRecordsCollection } from "./_db";
+import { getRecordsCollection } from "./_db.js";
 import type { DisciplineId, MaturityLevel, Severity, ValidationErrorEntry, ValidationRecord } from "../src/lib/types";
 
 interface ApiRequest {

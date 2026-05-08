@@ -4,3 +4,4 @@ dev-server*.log
 .vite/
 
 .vercel
+.env*.local
