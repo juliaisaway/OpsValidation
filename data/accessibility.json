@@ -1,0 +1,41 @@
+{
+  "id": "accessibility",
+  "name": "Acessibilidade",
+  "shortName": "A11y",
+  "description": "Critérios de inclusão, navegação, contraste, semântica e leitura assistiva.",
+  "maturity": {
+    "checklist": [
+      { "id": "contrast", "text": "Contraste atende ao critério esperado para texto e controles", "points": 2 },
+      { "id": "keyboard", "text": "Fluxo pode ser operado por teclado", "points": 2 },
+      { "id": "labels", "text": "Campos e controles têm rótulos claros", "points": 1 },
+      { "id": "semantics", "text": "Estrutura semântica da tela foi considerada", "points": 1 },
+      { "id": "assistive", "text": "Conteúdo para tecnologias assistivas foi previsto", "points": 2 },
+      { "id": "motion", "text": "Movimento, foco e feedback não criam barreiras", "points": 1 }
+    ],
+    "levels": [
+      { "id": "alta", "label": "Alta maturidade", "min": 7, "max": 9, "tone": "success" },
+      { "id": "media", "label": "Média maturidade", "min": 3, "max": 6, "tone": "warning" },
+      { "id": "baixa", "label": "Baixa maturidade", "min": 0, "max": 2, "tone": "danger" }
+    ]
+  },
+  "taxonomy": [
+    {
+      "id": "percepcao",
+      "label": "Percepção",
+      "errors": [
+        { "id": "contraste", "name": "Contraste insuficiente", "severity": "critico", "avoidable": true },
+        { "id": "texto-alternativo", "name": "Imagem funcional sem alternativa textual", "severity": "alto", "avoidable": true },
+        { "id": "informacao-cor", "name": "Informação transmitida somente por cor", "severity": "alto", "avoidable": true }
+      ]
+    },
+    {
+      "id": "operacao",
+      "label": "Operação",
+      "errors": [
+        { "id": "foco-ausente", "name": "Estado de foco não especificado", "severity": "alto", "avoidable": true },
+        { "id": "teclado", "name": "Interação não prevista para teclado", "severity": "critico", "avoidable": false },
+        { "id": "alvo-toque", "name": "Área de toque abaixo do mínimo recomendado", "severity": "medio", "avoidable": true }
+      ]
+    }
+  ]
+}

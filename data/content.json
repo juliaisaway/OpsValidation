@@ -1,0 +1,43 @@
+{
+  "id": "content",
+  "name": "Content Design",
+  "shortName": "Content",
+  "description": "Clareza, tom, orientação e consistência textual da experiência.",
+  "maturity": {
+    "checklist": [
+      { "id": "doc", "text": "Decisões de conteúdo estão documentadas no Figma", "points": 2 },
+      { "id": "alternatives", "text": "Apresenta ao menos uma alternativa de texto explorada", "points": 1 },
+      { "id": "journey", "text": "Texto considera o contexto completo da jornada", "points": 2 },
+      { "id": "tone", "text": "Tom de voz está consistente com o produto e o momento", "points": 1 },
+      { "id": "action", "text": "Mensagens orientam a próxima ação do usuário", "points": 2 },
+      { "id": "review", "text": "Entrega passou por revisão ou validação cruzada", "points": 1 }
+    ],
+    "levels": [
+      { "id": "alta", "label": "Alta maturidade", "min": 7, "max": 9, "tone": "success" },
+      { "id": "media", "label": "Média maturidade", "min": 3, "max": 6, "tone": "warning" },
+      { "id": "baixa", "label": "Baixa maturidade", "min": 0, "max": 2, "tone": "danger" }
+    ]
+  },
+  "taxonomy": [
+    {
+      "id": "estilo",
+      "label": "Estilo",
+      "errors": [
+        { "id": "pontuacao", "name": "Pontuação incorreta ou inconsistente", "severity": "baixo", "avoidable": true },
+        { "id": "capitalizacao", "name": "Capitalização fora do padrão", "severity": "baixo", "avoidable": true },
+        { "id": "tom-inadequado", "name": "Tom inadequado ao contexto", "severity": "alto", "avoidable": true },
+        { "id": "voz-inconsistente", "name": "Voz inconsistente com o produto", "severity": "medio", "avoidable": true }
+      ]
+    },
+    {
+      "id": "clareza",
+      "label": "Clareza",
+      "errors": [
+        { "id": "linguagem-tecnica", "name": "Linguagem técnica exposta ao usuário final", "severity": "alto", "avoidable": false },
+        { "id": "ambiguidade", "name": "Mensagem ambígua ou com dupla interpretação", "severity": "alto", "avoidable": true },
+        { "id": "acao-ausente", "name": "Mensagem de erro sem instrução de ação", "severity": "critico", "avoidable": true },
+        { "id": "hierarquia", "name": "Hierarquia de informação prejudicada", "severity": "alto", "avoidable": false }
+      ]
+    }
+  ]
+}

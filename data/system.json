@@ -1,0 +1,41 @@
+{
+  "id": "system",
+  "name": "Design System",
+  "shortName": "System",
+  "description": "Uso correto de componentes, tokens, padrões e consistência sistêmica.",
+  "maturity": {
+    "checklist": [
+      { "id": "components", "text": "Componentes oficiais foram usados sem variações indevidas", "points": 2 },
+      { "id": "tokens", "text": "Cores, espaçamentos e tipografia seguem tokens do sistema", "points": 2 },
+      { "id": "states", "text": "Estados de interação e erro estão previstos", "points": 2 },
+      { "id": "responsive", "text": "Comportamento responsivo foi especificado", "points": 1 },
+      { "id": "handoff", "text": "Handoff contém anotações suficientes para implementação", "points": 1 },
+      { "id": "patterns", "text": "Fluxo segue padrões já estabelecidos na biblioteca", "points": 1 }
+    ],
+    "levels": [
+      { "id": "alta", "label": "Alta maturidade", "min": 7, "max": 9, "tone": "success" },
+      { "id": "media", "label": "Média maturidade", "min": 3, "max": 6, "tone": "warning" },
+      { "id": "baixa", "label": "Baixa maturidade", "min": 0, "max": 2, "tone": "danger" }
+    ]
+  },
+  "taxonomy": [
+    {
+      "id": "componentes",
+      "label": "Componentes",
+      "errors": [
+        { "id": "componente-inexistente", "name": "Componente recriado sem necessidade", "severity": "alto", "avoidable": true },
+        { "id": "variant-errada", "name": "Variante de componente aplicada de forma incorreta", "severity": "medio", "avoidable": true },
+        { "id": "estado-ausente", "name": "Estado obrigatório não especificado", "severity": "alto", "avoidable": true }
+      ]
+    },
+    {
+      "id": "tokens",
+      "label": "Tokens",
+      "errors": [
+        { "id": "cor-fora-token", "name": "Cor fora dos tokens aprovados", "severity": "medio", "avoidable": true },
+        { "id": "espacamento-inconsistente", "name": "Espaçamento inconsistente com a escala", "severity": "medio", "avoidable": true },
+        { "id": "tipografia-fora-padrao", "name": "Tipografia fora do padrão do sistema", "severity": "alto", "avoidable": true }
+      ]
+    }
+  ]
+}
