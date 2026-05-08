@@ -2,9 +2,15 @@ import type { DisciplineId, ValidationErrorEntry, ValidationRecord } from "./typ
 
 export interface FormState {
   disciplineId: DisciplineId;
+  designer: string;
+  journey: string;
+  journeyLink: string;
+  round: number;
+  date: string;
   checkedCriteria: Set<string>;
   selectedCategoryId: string;
   selectedErrorId: string | null;
+  errorNote: string;
   errors: ValidationErrorEntry[];
 }
 

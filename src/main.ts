@@ -40,9 +40,15 @@ function resetForm(disciplineId: DisciplineId = form?.disciplineId ?? "content")
 
   form = {
     disciplineId: config.id,
+    designer: "",
+    journey: "",
+    journeyLink: "",
+    round: 1,
+    date: "",
     checkedCriteria: new Set(),
     selectedCategoryId: config.taxonomy[0]?.id ?? "",
     selectedErrorId: null,
+    errorNote: "",
     errors: [],
   };
 }
@@ -114,8 +120,6 @@ function addError(): void {
     return;
   }
 
-  const note = document.querySelector<HTMLTextAreaElement>("#error-note")?.value.trim() ?? "";
-
   form.errors.push({
     categoryId: category.id,
     categoryLabel: category.label,
@@ -123,18 +127,18 @@ function addError(): void {
     name: error.name,
     severity: error.severity,
     avoidable: error.avoidable,
-    note,
+    note: form.errorNote.trim(),
   });
   form.selectedErrorId = null;
+  form.errorNote = "";
   render();
 }
 
 async function saveValidation(): Promise<void> {
-  const designer = document.querySelector<HTMLInputElement>("#designer")?.value.trim() ?? "";
-  const journey = document.querySelector<HTMLInputElement>("#journey")?.value.trim() ?? "";
-  const journeyLink = document.querySelector<HTMLInputElement>("#journey-link")?.value.trim() ?? "";
-  const round = Number(document.querySelector<HTMLSelectElement>("#round")?.value ?? 1);
-  const date = document.querySelector<HTMLInputElement>("#date")?.value || new Date().toISOString().slice(0, 10);
+  const designer = form.designer.trim();
+  const journey = form.journey.trim();
+  const journeyLink = form.journeyLink.trim();
+  const date = form.date || new Date().toISOString().slice(0, 10);
 
   if (!designer || !journey) {
     window.alert("Preencha o nome do designer e a jornada.");
@@ -155,7 +159,7 @@ async function saveValidation(): Promise<void> {
     designer,
     journey,
     journeyLink,
-    round,
+    round: form.round,
     date,
     checkedCriteria: [...form.checkedCriteria],
     maturityPoints: points,
@@ -215,8 +219,33 @@ app.addEventListener("change", (event) => {
   if (target.matches("[data-filter]")) {
     activeFilter = target.value as FilterId;
     render();
+  } else if (target.matches("[data-form-field]")) {
+    syncFormField(target);
   }
 });
+
+app.addEventListener("input", (event) => {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+  if (target.matches("[data-form-field]")) {
+    syncFormField(target);
+  }
+});
+
+function syncFormField(target: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement): void {
+  const field = target.dataset.formField as keyof Pick<FormState, "designer" | "journey" | "journeyLink" | "round" | "date" | "errorNote"> | undefined;
+
+  if (!field) {
+    return;
+  }
+
+  if (field === "round") {
+    form.round = Number(target.value);
+    return;
+  }
+
+  form[field] = target.value;
+}
 
 loadConfigs()
   .then(async (loadedConfigs) => {

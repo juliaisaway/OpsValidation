@@ -36,27 +36,27 @@ export function renderNewValidation(context: RenderContext): string {
         <div class="form-grid">
           <div class="form-group">
             <label for="designer">Designer responsável</label>
-            <input type="text" id="designer" placeholder="Nome do designer" />
+            <input type="text" id="designer" data-form-field="designer" value="${escapeHtml(context.form.designer)}" placeholder="Nome do designer" />
           </div>
           <div class="form-group">
             <label for="journey">Jornada / produto</label>
-            <input type="text" id="journey" placeholder="Ex: Fatura digital - Vivo Fibra" />
+            <input type="text" id="journey" data-form-field="journey" value="${escapeHtml(context.form.journey)}" placeholder="Ex: Fatura digital - Vivo Fibra" />
           </div>
           <div class="form-group form-group-full">
             <label for="journey-link">Link da Jornada</label>
-            <input type="url" id="journey-link" placeholder="https://www.figma.com/proto/..." />
+            <input type="url" id="journey-link" data-form-field="journeyLink" value="${escapeHtml(context.form.journeyLink)}" placeholder="https://www.figma.com/proto/..." />
           </div>
           <div class="form-group">
             <label for="round">Rodada de validação</label>
-            <select id="round">
-              <option value="1">1a rodada</option>
-              <option value="2">2a rodada</option>
-              <option value="3">3a rodada ou mais</option>
+            <select id="round" data-form-field="round">
+              <option value="1" ${context.form.round === 1 ? "selected" : ""}>1a rodada</option>
+              <option value="2" ${context.form.round === 2 ? "selected" : ""}>2a rodada</option>
+              <option value="3" ${context.form.round === 3 ? "selected" : ""}>3a rodada ou mais</option>
             </select>
           </div>
           <div class="form-group">
             <label for="date">Data</label>
-            <input type="date" id="date" />
+            <input type="date" id="date" data-form-field="date" value="${escapeHtml(context.form.date)}" />
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@ export function renderNewValidation(context: RenderContext): string {
         ${renderErrorTypeList(context, config)}
         <div class="form-group spaced">
           <label for="error-note">Contexto / observação</label>
-          <textarea id="error-note" placeholder="Ex: tela de confirmação de pagamento, fluxo de segunda via..."></textarea>
+          <textarea id="error-note" data-form-field="errorNote" placeholder="Ex: tela de confirmação de pagamento, fluxo de segunda via...">${escapeHtml(context.form.errorNote)}</textarea>
         </div>
         <div class="inline-actions">
           <button class="btn btn-outline" data-action="add-error">${icon("plus")}Adicionar erro</button>
