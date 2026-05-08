@@ -2,7 +2,7 @@ import "./styles/styles.scss";
 import { findMaturityLevel, loadConfigs } from "./lib/config";
 import { icon, type FilterId, type PageId, type RenderContext } from "./lib/render";
 import { createRecord, loadRecords, type FormState } from "./lib/state";
-import type { DisciplineConfig, DisciplineId, ValidationRecord } from "./lib/types";
+import { practiceAreas, type DisciplineConfig, type DisciplineId, type PracticeArea, type ValidationRecord } from "./lib/types";
 import { renderDashboard } from "./pages/dashboard";
 import { renderDesigners } from "./pages/designers";
 import { renderHistory } from "./pages/history";
@@ -41,6 +41,7 @@ function resetForm(disciplineId: DisciplineId = form?.disciplineId ?? "content")
   form = {
     disciplineId: config.id,
     designer: "",
+    practiceArea: practiceAreas[0],
     journey: "",
     journeyLink: "",
     round: 1,
@@ -157,6 +158,7 @@ async function saveValidation(): Promise<void> {
   const record = await createRecord({
     disciplineId: config.id,
     designer,
+    practiceArea: form.practiceArea,
     journey,
     journeyLink,
     round: form.round,
@@ -233,7 +235,7 @@ app.addEventListener("input", (event) => {
 });
 
 function syncFormField(target: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement): void {
-  const field = target.dataset.formField as keyof Pick<FormState, "designer" | "journey" | "journeyLink" | "round" | "date" | "errorNote"> | undefined;
+  const field = target.dataset.formField as keyof Pick<FormState, "designer" | "practiceArea" | "journey" | "journeyLink" | "round" | "date" | "errorNote"> | undefined;
 
   if (!field) {
     return;
@@ -241,6 +243,11 @@ function syncFormField(target: HTMLInputElement | HTMLTextAreaElement | HTMLSele
 
   if (field === "round") {
     form.round = Number(target.value);
+    return;
+  }
+
+  if (field === "practiceArea") {
+    form.practiceArea = target.value as PracticeArea;
     return;
   }
 

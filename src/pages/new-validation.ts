@@ -1,6 +1,6 @@
 import { findMaturityLevel, maxMaturityPoints } from "../lib/config";
 import { escapeHtml, icon, severityBadge, toneClassByLevel, type RenderContext } from "../lib/render";
-import type { DisciplineConfig } from "../lib/types";
+import { practiceAreas, type DisciplineConfig } from "../lib/types";
 
 export function renderNewValidation(context: RenderContext): string {
   const config = context.currentConfig();
@@ -39,10 +39,16 @@ export function renderNewValidation(context: RenderContext): string {
             <input type="text" id="designer" data-form-field="designer" value="${escapeHtml(context.form.designer)}" placeholder="Nome do designer" />
           </div>
           <div class="form-group">
+            <label for="practice-area">Área de atuação</label>
+            <select id="practice-area" data-form-field="practiceArea">
+              ${practiceAreas.map((area) => `<option value="${escapeHtml(area)}" ${context.form.practiceArea === area ? "selected" : ""}>${area}</option>`).join("")}
+            </select>
+          </div>
+          <div class="form-group">
             <label for="journey">Jornada / produto</label>
             <input type="text" id="journey" data-form-field="journey" value="${escapeHtml(context.form.journey)}" placeholder="Ex: Fatura digital - Vivo Fibra" />
           </div>
-          <div class="form-group form-group-full">
+          <div class="form-group">
             <label for="journey-link">Link da Jornada</label>
             <input type="url" id="journey-link" data-form-field="journeyLink" value="${escapeHtml(context.form.journeyLink)}" placeholder="https://www.figma.com/proto/..." />
           </div>

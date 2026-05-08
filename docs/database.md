@@ -25,6 +25,7 @@ Cada documento representa uma validação finalizada.
   _id: ObjectId,
   disciplineId: "content" | "system" | "accessibility",
   designer: string,
+  practiceArea: "App Vivo" | "Vivo Empresas" | "Portais & E-comm" | "Evolução" | "Design Horizontal",
   journey: string,
   journeyLink: string,
   round: number,

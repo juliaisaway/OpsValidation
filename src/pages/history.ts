@@ -14,7 +14,7 @@ export function renderHistory(context: RenderContext): string {
       </div>
       ${!scopedRecords.length ? `<div class="empty-state">${icon("database-off")}Nenhuma validação registrada para este filtro</div>` : `
         <div class="table-wrap"><table>
-          <thead><tr><th>Data</th><th>Frente</th><th>Designer</th><th>Jornada</th><th>Link</th><th>Rodada</th><th>Maturidade</th><th>Erros</th><th>Evitáveis</th><th>Críticos</th></tr></thead>
+          <thead><tr><th>Data</th><th>Frente</th><th>Área</th><th>Designer</th><th>Jornada</th><th>Link</th><th>Rodada</th><th>Maturidade</th><th>Erros</th><th>Evitáveis</th><th>Críticos</th></tr></thead>
           <tbody>
             ${scopedRecords.slice().reverse().map((record) => {
               const config = context.configById(record.disciplineId);
@@ -24,6 +24,7 @@ export function renderHistory(context: RenderContext): string {
                 <tr>
                   <td class="muted-cell">${record.date}</td>
                   <td>${disciplineBadge(context, record.disciplineId)}</td>
+                  <td>${record.practiceArea ? escapeHtml(record.practiceArea) : `<span class="muted-cell">-</span>`}</td>
                   <td><strong>${escapeHtml(record.designer)}</strong></td>
                   <td>${escapeHtml(record.journey)}</td>
                   <td>${record.journeyLink ? `<a class="table-link" href="${escapeHtml(record.journeyLink)}" target="_blank" rel="noreferrer">${icon("external-link")}Abrir</a>` : `<span class="muted-cell">-</span>`}</td>

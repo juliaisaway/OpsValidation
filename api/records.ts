@@ -1,5 +1,5 @@
 import { getRecordsCollection } from "./_db.js";
-import type { DisciplineId, MaturityLevel, Severity, ValidationErrorEntry, ValidationRecord } from "../src/lib/types";
+import { practiceAreas, type DisciplineId, type MaturityLevel, type PracticeArea, type Severity, type ValidationErrorEntry, type ValidationRecord } from "../src/lib/types";
 
 interface ApiRequest {
   method?: string;
@@ -21,6 +21,7 @@ interface ValidationRecordDocument extends Omit<ValidationRecord, "id"> {
 type NewValidationRecordPayload = Omit<ValidationRecord, "id">;
 
 const allowedDisciplineIds = new Set<DisciplineId>(["content", "system", "accessibility"]);
+const allowedPracticeAreas = new Set<PracticeArea>(practiceAreas);
 const allowedMaturityLevels = new Set<MaturityLevel["id"]>(["alta", "media", "baixa"]);
 const allowedSeverities = new Set<Severity>(["critico", "alto", "medio", "baixo"]);
 
@@ -53,6 +54,7 @@ async function listRecords(response: ApiResponse): Promise<void> {
       id: record._id.toHexString(),
       disciplineId: record.disciplineId,
       designer: record.designer,
+      practiceArea: record.practiceArea,
       journey: record.journey,
       journeyLink: record.journeyLink,
       round: record.round,
@@ -92,6 +94,7 @@ function normalizeRecordPayload(body: unknown): NewValidationRecordPayload {
   return {
     disciplineId: body.disciplineId,
     designer: body.designer.trim(),
+    practiceArea: body.practiceArea,
     journey: body.journey.trim(),
     journeyLink: body.journeyLink.trim(),
     round: body.round,
@@ -122,6 +125,7 @@ function isRecordPayload(value: unknown): value is NewValidationRecordPayload {
     allowedDisciplineIds.has(payload.disciplineId) &&
     typeof payload.designer === "string" &&
     payload.designer.trim().length > 0 &&
+    allowedPracticeAreas.has(payload.practiceArea) &&
     typeof payload.journey === "string" &&
     payload.journey.trim().length > 0 &&
     typeof payload.journeyLink === "string" &&

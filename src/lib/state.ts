@@ -1,8 +1,9 @@
-import type { DisciplineId, ValidationErrorEntry, ValidationRecord } from "./types";
+import type { DisciplineId, PracticeArea, ValidationErrorEntry, ValidationRecord } from "./types";
 
 export interface FormState {
   disciplineId: DisciplineId;
   designer: string;
+  practiceArea: PracticeArea;
   journey: string;
   journeyLink: string;
   round: number;

@@ -1,5 +1,14 @@
 export type DisciplineId = "content" | "system" | "accessibility";
 export type Severity = "critico" | "alto" | "medio" | "baixo";
+export type PracticeArea = "App Vivo" | "Vivo Empresas" | "Portais & E-comm" | "Evolução" | "Design Horizontal";
+
+export const practiceAreas: PracticeArea[] = [
+  "App Vivo",
+  "Vivo Empresas",
+  "Portais & E-comm",
+  "Evolução",
+  "Design Horizontal",
+];
 
 export interface MaturityCriterion {
   id: string;
@@ -54,6 +63,7 @@ export interface ValidationRecord {
   id: string;
   disciplineId: DisciplineId;
   designer: string;
+  practiceArea: PracticeArea;
   journey: string;
   journeyLink: string;
   round: number;
