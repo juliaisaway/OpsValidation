@@ -1,7 +1,5 @@
 import type { DisciplineId, ValidationErrorEntry, ValidationRecord } from "./types";
 
-const storageKey = "ops-validation.records";
-
 export interface FormState {
   disciplineId: DisciplineId;
   checkedCriteria: Set<string>;
@@ -10,20 +8,42 @@ export interface FormState {
   errors: ValidationErrorEntry[];
 }
 
-export function loadRecords(): ValidationRecord[] {
-  const rawRecords = localStorage.getItem(storageKey);
+export type NewValidationRecord = Omit<ValidationRecord, "id">;
 
-  if (!rawRecords) {
-    return [];
+export async function loadRecords(): Promise<ValidationRecord[]> {
+  const response = await fetch("/api/records");
+
+  if (!response.ok) {
+    throw new Error("Não foi possível carregar o histórico de validações.");
   }
 
-  try {
-    return JSON.parse(rawRecords) as ValidationRecord[];
-  } catch {
-    return [];
-  }
+  const payload = await parseJsonResponse<{ records: ValidationRecord[] }>(response, "histórico de validações");
+  return payload.records;
 }
 
-export function saveRecords(records: ValidationRecord[]): void {
-  localStorage.setItem(storageKey, JSON.stringify(records));
+export async function createRecord(record: NewValidationRecord): Promise<ValidationRecord> {
+  const response = await fetch("/api/records", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(record),
+  });
+
+  if (!response.ok) {
+    throw new Error("Não foi possível salvar a validação.");
+  }
+
+  const payload = await parseJsonResponse<{ record: ValidationRecord }>(response, "validação salva");
+  return payload.record;
+}
+
+async function parseJsonResponse<T>(response: Response, label: string): Promise<T> {
+  const contentType = response.headers.get("content-type") ?? "";
+
+  if (!contentType.includes("application/json")) {
+    throw new Error(`A API retornou uma resposta inválida para ${label}.`);
+  }
+
+  return (await response.json()) as T;
 }

@@ -51,7 +51,7 @@ export interface ValidationErrorEntry {
 }
 
 export interface ValidationRecord {
-  id: number;
+  id: string;
   disciplineId: DisciplineId;
   designer: string;
   journey: string;

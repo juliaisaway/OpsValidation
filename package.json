@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5173 --strictPort",
     "sync:data": "node scripts/sync-data.mjs",
-    "build": "npm run sync:data && vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run sync:data && npm run typecheck && vite build",
     "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort"
   },
   "devDependencies": {
@@ -14,5 +15,8 @@
     "sass": "^1.77.2",
     "typescript": "^5.4.5",
     "vite": "^8.0.11"
+  },
+  "dependencies": {
+    "mongodb": "^7.2.0"
   }
 }
